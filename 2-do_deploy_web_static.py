@@ -18,7 +18,7 @@ def do_deploy(archive_path):
         run("mkdir -p /data/web_static/releases/{}/".format(name_without_tgz))
         run("tar -xvC /data/web_static/releases/{} -f /tmp/{}".format(
             name_without_tgz, tar_name))
-        run("rm {}".format(archive_path))
+        run("rm /tmp/{}".format(tar_name))
         run("rm -f /data/web_static/current")
         run("ln -sf /data/web_static/releases/{} /data/web_static/current".format(
             name_without_tgz

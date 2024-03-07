@@ -15,7 +15,7 @@ def do_deploy(archive_path):
     name_without_tgz = archive_path[:-4]
     try:
         put(archive_path, "/tmp/")
-        run("mkdir /data/web_static/releases/{}".format(name_without_tgz))
+        run("mkdir -p /data/web_static/releases/{}/".format(name_without_tgz))
         run("tar -xvC /data/web_static/releases/{} -f /tmp/{}".format(
             name_without_tgz, tar_name))
         run("rm {}".format(archive_path))

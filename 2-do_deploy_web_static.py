@@ -19,7 +19,7 @@ def do_deploy(archive_path):
     try:
         put(archive_path, "/tmp/")
         run("mkdir -p /data/web_static/releases/{}/".format(name_without_tgz))
-        run("taz -xzf /tmp/{} -C /data/web_static/releases/{}".format(
+        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
             tar_name, name_without_tgz))
         run("tar -xvC /data/web_static/releases/{} -f /tmp/{}".format(
             name_without_tgz, tar_name))

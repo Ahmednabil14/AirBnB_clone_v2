@@ -7,10 +7,13 @@ import os
 
 
 env.hosts = ['100.24.242.177', '54.165.77.224']
+
+
 def do_deploy(archive_path):
     """fabric function"""
     tar_name = archive_path.split("/")[1]
-    if os.path.exists(archive_path) == False:
+    var = "/data/web_static/releases/"
+    if not os.path.exists(archive_path):
         return False
     name_without_tgz = archive_path[:-4]
     try:
@@ -20,9 +23,8 @@ def do_deploy(archive_path):
             name_without_tgz, tar_name))
         run("rm /tmp/{}".format(tar_name))
         run("rm -f /data/web_static/current")
-        run("ln -sf /data/web_static/releases/{} /data/web_static/current".format(
-            name_without_tgz
-        ))
+        run("ln -sf {}{} /data/web_static/current".format(
+            var, name_without_tgz))
         return True
     except Exception:
         return False

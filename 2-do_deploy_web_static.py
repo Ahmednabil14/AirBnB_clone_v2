@@ -9,13 +9,14 @@ import os
 env.hosts = ['100.24.242.177', '54.165.77.224']
 def do_deploy(archive_path):
     """fabric function"""
+    tar_name = archive_path.split("/")[1]
     if os.path.exists(archive_path) == False:
         return False
     name_without_tgz = archive_path[:-4]
     try:
         put(archive_path, "/tmp/")
-        run("tar -xvC /data/web_static/releases/{} -f /tmp/".format(
-            name_without_tgz))
+        run("tar -xvC /data/web_static/releases/{} -f /tmp/{}".format(
+            name_without_tgz, tar_name))
         run("rm {}".format(archive_path))
         run("rm -f /data/web_static/current")
         run("ln -sf /data/web_static/releases/{} /data/web_static/current".format(

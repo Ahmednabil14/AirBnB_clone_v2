@@ -23,7 +23,7 @@ def do_deploy(archive_path):
             tar_name, name_without_tgz))
         run("rm /tmp/{}".format(tar_name))
         run("rm -f /data/web_static/current")
-        run("ln -sf {}{} /data/web_static/current".format(
+        run("ln -s {}{} /data/web_static/current".format(
             var, name_without_tgz))
         return True
     except Exception:

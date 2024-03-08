@@ -33,8 +33,8 @@ def do_deploy(archive_path):
     try:
         put(archive_path, "/tmp/")
         run("mkdir -p /data/web_static/releases/{}/".format(name_without_tgz))
-        run("tar -xzC /data/web_static/releases/{} -f /tmp/{}".format(
-            name_without_tgz, tar_name))
+        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
+            tar_name, name_without_tgz))
         run("rm /tmp/{}".format(tar_name))
         run("mv {}{}/web_static/* {}{}/".format(
             var, name_without_tgz, var, name_without_tgz))

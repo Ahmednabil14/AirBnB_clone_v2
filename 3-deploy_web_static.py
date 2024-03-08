@@ -32,9 +32,10 @@ def do_deploy(archive_path):
     name_without_tgz = archive_path[:-4]
     try:
         put(archive_path, "/tmp/")
+        local("cp {} /tmp/".format(archive_path))
         run("mkdir -p /data/web_static/releases/{}/".format(name_without_tgz))
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
-            tar_name, name_without_tgz))
+        run("tar -xzC /data/web_static/releases/{} -f /tmp/{}".format(
+            name_without_tgz, tar_name))
         run("rm /tmp/{}".format(tar_name))
         run("mv {}{}/web_static/* {}{}/".format(
             var, name_without_tgz, var, name_without_tgz))
@@ -42,6 +43,7 @@ def do_deploy(archive_path):
         run("rm -f /data/web_static/current")
         run("ln -s {}{} /data/web_static/current".format(
             var, name_without_tgz))
+        print('New version deployed!')
         return True
     except Exception:
         return False

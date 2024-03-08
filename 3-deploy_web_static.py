@@ -40,7 +40,7 @@ def do_deploy(archive_path):
             var, name_without_tgz, var, name_without_tgz))
         run("rm -rf {}{}/web_static".format(var, name_without_tgz))
         run("rm -f /data/web_static/current")
-        run("ln -sf {}{} /data/web_static/current".format(
+        run("ln -s {}{} /data/web_static/current".format(
             var, name_without_tgz))
         return True
     except Exception:

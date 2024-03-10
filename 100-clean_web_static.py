@@ -25,4 +25,4 @@ def do_clean(number=0):
                 run(f"rm -rf /data/web_static/releases/versions/{ver}")
     else:
         print("else statement")
-        print(number)
+        print(type(number))

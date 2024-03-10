@@ -4,8 +4,8 @@ from fabric.api import local, env, run
 import os
 
 
+versions = os.listdir("versions/")
 env.hosts = ['54.165.77.224', '100.24.242.177']
-# versions = os.listdir("versions/")
 
 
 def do_clean(number=0):

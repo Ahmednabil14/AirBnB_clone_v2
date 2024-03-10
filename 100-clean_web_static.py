@@ -21,7 +21,7 @@ def do_clean(number=0):
                 run(f"rm -rf /data/web_static/releases/versions/{ver[:-4]}")
     else:
         for ver in versions:
-            for i in range(1, (float(number) + .5) * 2):
+            for i in range(1, (float(number) + 0.5) * 2):
                 not_in_list = False
                 if str(versions_date_time[-i]) not in ver:
                     not_in_list = True

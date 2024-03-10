@@ -21,10 +21,10 @@ def do_clean(number=0):
                 run(f"rm -rf /data/web_static/releases/versions/{ver[:-4]}")
     else:
         for ver in versions:
+            in_list = False
             for i in range(1, int(number) * 2 + 1):
-                not_in_list = False
-                if str(versions_date_time[-i]) not in ver:
-                    not_in_list = True
-            if not_in_list:
+                if str(versions_date_time[-i]) in ver:
+                    in_list = True
+            if not in_list:
                 local(f"rm -rf versions/{ver}")
                 run(f"rm -rf /data/web_static/releases/versions/{ver[:-4]}")

@@ -5,6 +5,7 @@ import os
 
 
 env.hosts = ['54.165.77.224', '100.24.242.177']
+env.warn_only = True
 
 
 def do_clean(number=0):

@@ -1,70 +1,79 @@
-# Puppet manifest to set up web servers for the deployment of web_static
+# 101-setup_web_static.pp
 
-# Update apt repository
-exec { 'apt-update':
-  command => '/usr/bin/apt-get update',
-  path    => ['/usr/bin', '/usr/sbin'],
-}
-
-# Install nginx
+# Ensure Nginx is installed
 package { 'nginx':
-  ensure  => 'installed',
-  require => Exec['apt-update'],
+ ensure => installed,
 }
 
-# Create directories
-file { ['/data/web_static/releases/test/', '/data/web_static/shared/']:
-  ensure => 'directory',
+# Define the base directory for web_static
+file { '/data':
+ ensure => directory,
+ owner => 'ubuntu',
+ group => 'ubuntu',
+ mode   => '0755',
 }
 
-# Create index.html file
+# Create necessary directories for web_static
+file { [
+ '/data/web_static',
+ '/data/web_static/releases',
+ '/data/web_static/shared',
+ '/data/web_static/releases/test',
+]:
+ ensure => directory,
+ owner => 'ubuntu',
+ group => 'ubuntu',
+ mode   => '0755',
+}
+
+# Create a test HTML file
 file { '/data/web_static/releases/test/index.html':
-  ensure  => 'file',
-  content => 'Helle from Ngnix',
+ ensure => file,
+ owner   => 'ubuntu',
+ group   => 'ubuntu',
+ mode    => '0644',
+ content => '<html>
+ <head>
+ </head>
+ <body>
+    Holberton School
+ </body>
+</html>',
 }
 
-# Remove current symbolic link
-file { '/data/web_static/current/':
-  ensure => 'absent',
-}
-
-# Create symbolic link
+# Ensure the symbolic link exists
 file { '/data/web_static/current':
-  ensure => 'link',
-  target => '/data/web_static/releases/test/',
+ ensure => link,
+ target => '/data/web_static/releases/test',
+ force => true,
 }
 
-# Change ownership
-file { '/data/':
-  ensure  => 'directory',
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
-  recurse => true,
+# Configure Nginx to serve the content
+file { '/etc/nginx/sites-available/hbnb_static':
+ ensure => file,
+ owner   => 'root',
+ group   => 'root',
+ mode    => '0644',
+ content => template('hbnb_static.erb'),
 }
 
-# Configure nginx
-file { '/etc/nginx/sites-available/default':
-  ensure  => 'file',
-  content => "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
-    server_name _;
-
-    location / {
-        index index.html index.nginx-debian.html;
-    }
-    location /hbnb_static {
-        alias /data/web_static/current/;
-    }
-}",
-  require => Package['nginx'],
-  notify  => Service['nginx'],
+# Enable the Nginx site
+nginx::resource::vhost { 'hbnb_static':
+ ensure       => present,
+ www_root     => '/data/web_static/current',
+ listen_port => 80,
+ server_name => 'hbnb_static',
+ index_files => ['index.html'],
+ autoindex    => 'off',
+ ssl          => false,
+ require      => File['/etc/nginx/sites-available/hbnb_static'],
 }
 
-# Restart nginx
+# Ensure Nginx is running
 service { 'nginx':
-  ensure    => 'running',
-  enable    => true,
-  subscribe => File['/etc/nginx/sites-available/default'],
+ ensure     => running,
+ enable     => true,
+ hasrestart => true,
+ hasstatus => true,
+ require    => Package['nginx'],
 }

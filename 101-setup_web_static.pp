@@ -5,6 +5,11 @@ package { 'nginx':
  ensure => installed,
 }
 
+exec { 'mkdir':
+    mkdir -p /data/web_static/shared/
+    mkdir -p /data/web_static/releases/test/
+    sudo chown -R ubuntu:ubuntu /data/
+}
 # Define the base directory for web_static
 file { '/data':
  ensure => directory,

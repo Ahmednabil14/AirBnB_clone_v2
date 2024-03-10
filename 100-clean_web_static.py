@@ -16,8 +16,8 @@ def do_clean(number=0):
         versions_date_time.append(int(ver.split("_")[2][:-4]))
     versions_date_time.sort()
     if number == 0 or number == 1:
+        print("ok")
         for ver in versions:
-            print("ok")
             if versions_date_time[-1] not in ver and versions_date_time[-2] not in ver:
                 print(f"Considering for deletion: {ver}")
                 local(f"rm -rf /versions/{ver}")

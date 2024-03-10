@@ -5,8 +5,7 @@ import os
 
 
 env.hosts = ['54.165.77.224', '100.24.242.177']
-"""get versuins provided"""
-versions = os.listdir("versions/")
+# versions = os.listdir("versions/")
 
 
 def do_clean(number=0):

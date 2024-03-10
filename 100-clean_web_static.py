@@ -3,10 +3,13 @@
 from fabric.api import local, env, run
 import os
 
+
 env.hosts = ['100.24.242.177', '54.165.77.224']
+
 
 def do_clean(number=0):
     """fabric function"""
+    # print("do_clean function called")
     versions = os.listdir("versions/")
     versions_date_time = []
     for ver in versions:
@@ -20,3 +23,6 @@ def do_clean(number=0):
                 print(f"Considering for deletion: {ver}")
                 local(f"rm -rf /versions/{ver}")
                 run(f"rm -rf /data/web_static/releases/versions/{ver}")
+    else:
+        print("else statement")
+        print(number)

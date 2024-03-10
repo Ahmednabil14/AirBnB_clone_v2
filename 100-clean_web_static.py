@@ -9,7 +9,7 @@ env.hosts = ['100.24.242.177', '54.165.77.224']
 
 def do_clean(number=0):
     """fabric function"""
-    print("do_clean function called")
+    # print("do_clean function called")
     versions = os.listdir("versions/")
     versions_date_time = []
     for ver in versions:
@@ -17,6 +17,7 @@ def do_clean(number=0):
     versions_date_time.sort()
     if number == 0 or number == 1:
         for ver in versions:
+            print("ok")
             if versions_date_time[-1] not in ver and versions_date_time[-2] not in ver:
                 print(f"Considering for deletion: {ver}")
                 local(f"rm -rf /versions/{ver}")

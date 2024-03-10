@@ -5,11 +5,12 @@ import os
 
 
 env.hosts = ['54.165.77.224', '100.24.242.177']
+versions = os.listdir("versions/")
+
 
 
 def do_clean(number=0):
     """fabric function"""
-    versions = os.listdir("versions/")
     versions_date_time = []
     for ver in versions:
         versions_date_time.append(int(ver.split("_")[2][:-4]))

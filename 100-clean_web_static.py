@@ -9,6 +9,7 @@ env.hosts = ['100.24.242.177', '54.165.77.224']
 
 def do_clean(number=0):
     """fabric function"""
+    print("do_clean function called")
     versions = os.listdir("versions/")
     versions_date_time = []
     for ver in versions:

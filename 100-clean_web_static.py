@@ -19,5 +19,5 @@ def do_clean(number=0):
         for ver in versions:
             if str(versions_date_time[-1]) not in ver and str(versions_date_time[-2]) not in ver:
                 print(f"Considering for deletion: {ver}")
-                local(f"rm -rf /versions/{ver}")
-                run(f"rm -rf /data/web_static/releases/versions/{ver}")
+                local(f"rm -rf versions/{ver}")
+                run(f"rm -rf /data/web_static/releases/versions/{ver[:-4]}")

@@ -15,6 +15,7 @@ def do_clean(number=0):
     for ver in versions:
         versions_date_time.append(int(ver.split("_")[2][:-4]))
     versions_date_time.sort()
+    print("before if")
     if number == 0 or number == 1:
         print("ok")
         for ver in versions:

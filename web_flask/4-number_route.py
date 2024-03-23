@@ -41,11 +41,10 @@ def python_is_cool(text):
     return ("Python {}".format(text_without_underscore))
 
 
-@web_app.route("/number/<n>", strict_slashes=False)
+@web_app.route("/number/<int:n>", strict_slashes=False)
 def is_number(n):
     """n is int or not"""
-    if n.isdigit():
-        return ("{} is a number".format(n))
+    return ("{} is a number".format(n))
 
 
 if __name__ == "__main__":

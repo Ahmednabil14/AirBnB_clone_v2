@@ -50,7 +50,7 @@ def is_number(n):
 @web_app.route("/number_template/<int:n>", strict_slashes=False)
 def open_html(n):
     """open html file"""
-    return render_template("5-number.html")
+    return render_template("5-number.html", n=n)
 
 
 if __name__ == "__main__":

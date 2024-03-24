@@ -26,6 +26,8 @@ city_2_1 = City(state_id=state_2.id, name="Page")
 print("New city: {} in the state: {}".format(city_2_1, state_2))
 city_2_1.save()
 
+print("\n\n\n")
+print(storage.all(State))
 
 """
  Verification

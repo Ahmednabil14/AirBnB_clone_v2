@@ -69,3 +69,7 @@ class FileStorage:
         if obj:
             obj = obj.to_dict()['__class__'] + '.' + obj.to_dict()['id']
             del self.__objects[obj]
+
+    def close(self):
+        """function that calling reload function"""
+        self.reload()

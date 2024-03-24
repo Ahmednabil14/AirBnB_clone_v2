@@ -89,6 +89,6 @@ class DBStorage():
         self.__session = scoped_session(session_factory)
 
     def close(self):
-        """ close method """
+        """remove the session for reloading data"""
         if self.__session:
-            self.__session.close()
+            self.__session.remove()

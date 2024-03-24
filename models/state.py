@@ -23,7 +23,7 @@ class State(BaseModel, Base):
             """Getter attribute to retrieve cities associated with state"""
             from models import storage
             cities = []
-            citiesList = storage.all("City")  # Retrieve all City instances
+            citiesList = storage.all(City)  # Retrieve all City instances
             for city in citiesList.values():
                 if city.state_id == self.id:
                     cities.append(city)

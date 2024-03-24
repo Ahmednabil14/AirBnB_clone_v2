@@ -37,10 +37,8 @@ def do_deploy(archive_path):
         run("tar -xzC /data/web_static/releases/{} -f /tmp/{}".format(
             name_without_tgz, tar_name))
         run("rm /tmp/{}".format(tar_name))
-        # run("mv {}{}/web_static/* {}{}/".format(
-        #     var, name_without_tgz, var, name_without_tgz))
-        run("rsync -a {}{}/web_static/ {}{}/".format(
-            var, archive_name_no_ext, var, archive_name_no_ext))
+        run("mv {}{}/web_static/* {}{}/".format(
+            var, name_without_tgz, var, name_without_tgz))
         run("rm -rf {}{}/web_static".format(var, name_without_tgz))
         run("rm -f /data/web_static/current")
         run("ln -s {}{} /data/web_static/current".format(
